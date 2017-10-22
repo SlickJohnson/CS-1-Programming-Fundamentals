@@ -60,7 +60,7 @@ The program consists of 3 Classes:  Simulation, Logger, and Person.
 * Person: Represents the people that make up the population that the virus is spreading through.
 * Logger: A helper class for logging all events that happen in the simulation.
 
-*NOTE*: Although our original in-class discussion for the project noted that we should
+*NOTEs*: Although our original in-class discussion for the project noted that we should
 also have an Abstract Superclass called Virus and corresponding subclasses for each actual
 virus we wanted to simulate, after playing around with the simulation I decided that this wasn't the best approach. Since viruses are static in this simulation and all we really care about is the name of the virus, the mortality rate of the virus, and the rate at which the virus spreads through a population ("Basic Reproduction Number"), I've decided it makes more sense to just store that data as attributes at the Simulation level.
 

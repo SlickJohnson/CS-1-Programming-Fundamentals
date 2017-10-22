@@ -51,56 +51,42 @@ class Logger(object):
     '''
 
     def __init__(self, file_name):
-        # TODO:  Finish this initialization method.  The file_name passed should be the
-        # full file name of the file that the logs will be written to.
-        self.file_name = None
+        self.file_name = file_name
 
     def write_metadata(self, pop_size, vacc_percentage, virus_name, mortality_rate,
                        basic_repro_num):
-        # TODO: Finish this method.  The simulation class should use this method
-        # immediately upon creation, to log the specific parameters of the simulation
-        # as the first line of the file.  This line of metadata should be tab-delimited
-        # (each item separated by a '\t' character).
-        # NOTE: Since this is the first method called, it will create the text file
-        # that we will store all logs in.  Be sure to use 'w' mode when you open the file.
-        # For all other methods, we'll want to use the 'a' mode to append our new log to the end,
-        # since 'w' overwrites the file.
-        # NOTE: Make sure to end every line with a '/n' character to ensure that each
-        # event logged ends up on a separate line!
-        pass
+        log_file = open(self.file_name, "w+")
+        log_file.write("Population: {}\tPercentage Vaccinated: {}\tVirus Name: {}\tMortality Rate: {}\t"
+                       "Basic Reproduction Number: {}\n".format(pop_size, vacc_percentage, virus_name, mortality_rate,
+                                                                basic_repro_num))
 
     def log_interaction(self, person1, person2, did_infect=None,
                         person2_vacc=None, person2_sick=None):
-        # TODO: Finish this method.  The Simulation object should use this method to
-        # log every interaction a sick individual has during each time step.  This method
-        # should accomplish this by using the information from person1 (the infected person),
-        # person2 (the person randomly chosen for the interaction), and the optional
-        # keyword arguments passed into the method.  See documentation for more info
-        # on the format of the logs that this method should write.
-        # NOTE:  You'll need to think
-        # about how the booleans passed (or not passed) represent
-        # all the possible edge cases!
-        # NOTE: Make sure to end every line with a '/n' character to ensure that each
-        # event logged ends up on a separate line!
-        pass
+        person1_id = person1.get_person_id()
+        person2_id = person2.get_person_id()
+
+        if did_infect:
+            log_file = open(self.file_name, "a")
+            log_file.write("{} infects {}\n".format(person1_id, person2_id))
+        elif person2_vacc:
+            log_file = open(self.file_name, "a")
+            log_file.write("{} didn't infect {} because vaccinated\n".format(person1_id, person2_id))
+        elif person2_sick:
+            log_file = open(self.file_name, "a")
+            log_file.write("{} didn't infect {} because already sick\n".format(person1_id, person2_id))
+        else:
+            log_file = open(self.file_name, "a")
+            log_file.write("Abnormal interaction. Please check code to make sure everything is working as intended")
+            log_file.write("{} {} {} {} {}\n".format(person1_id, person2_id, did_infect, person2_vacc, person2_sick))
 
     def log_infection_survival(self, person, did_die_from_infection):
-        # TODO: Finish this method.  The Simulation object should use this method to log
-        # the results of every call of a Person object's .resolve_infection() method.
-        # If the person survives, did_die_from_infection should be False.  Otherwise,
-        # did_die_from_infection should be True.  See the documentation for more details
-        # on the format of the log.
-        # NOTE: Make sure to end every line with a '/n' character to ensure that each
-        # event logged ends up on a separate line!
-        pass
+        log_file = open(self.file_name, "a")
+
+        if did_die_from_infection:
+            log_file.write("{} died from infection\n".format(person.get_person_id()))
+        else:
+            log_file.write("{} survived infection\n".format(person.get_person_id()))
 
     def log_time_step(self, time_step_number):
-        # TODO: Finish this method.  This method should log when a time step ends, and a
-        # new one begins.  See the documentation for more information on the format of the log.
-        # NOTE: Stretch challenge opportunity! Modify this method so that at the end of each time
-        # step, it also logs a summary of what happened in that time step, including the number of
-        # people infected, the number of people dead, etc.  You may want to create a helper class
-        # to compute these statistics for you, as a Logger's job is just to write logs!
-        # NOTE: Make sure to end every line with a '/n' character to ensure that each
-        # event logged ends up on a separate line!
-        pass
+        log_file = open(self.file_name, "a")
+        log_file.write("Time step {} ended, beginning {}...".format(time_step_number, time_step_number + 1))
