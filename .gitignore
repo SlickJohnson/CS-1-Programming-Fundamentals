@@ -1,1 +1,4 @@
 /course-readme-guidelines.md
+.idea
+.cache
+__pycache__

@@ -89,4 +89,4 @@ class Logger(object):
 
     def log_time_step(self, time_step_number):
         log_file = open(self.file_name, "a")
-        log_file.write("Time step {} ended, beginning {}...".format(time_step_number, time_step_number + 1))
+        log_file.write("Time step {} ended, beginning {}...\n".format(time_step_number, time_step_number + 1))

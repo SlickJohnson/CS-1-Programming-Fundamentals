@@ -50,15 +50,17 @@ class Person(object):
         self.infection = infection
 
     def did_survive_infection(self):
-        if random.random() < self.infection.mortality_rate:
-            self.is_alive = False
-            return False
+        if self.infection is not None:
+            print("I'm Infected With: ", self.infection)
+            if random.random() < self.infection.mortality_rate:
+                self.is_alive = False
+                return False
 
-        self.is_vaccinated = True
-        self.infection = None
-        self.is_infected = False
+            self.is_vaccinated = True
+            self.infection = None
+            self.is_infected = False
 
-        return True
+            return True
 
     def get_person_id(self):
         return self._id
